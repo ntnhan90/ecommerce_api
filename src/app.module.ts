@@ -3,6 +3,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './modules/users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TasksModule } from './modules/tasks/tasks.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { ProductModule } from './modules/product/product.module';
+import { OrderModule } from './modules/order/order.module';
+import { QrcodeModule } from './modules/qrcode/qrcode.module';
+import { CustomerModule } from './modules/customer/customer.module';
+import { BlogModule } from './modules/blog/blog.module';
+import { PagesModule } from './modules/pages/pages.module';
+import { MediaModule } from './modules/media/media.module';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -12,10 +22,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'root',
       password: 'root',
       database: 'ecommerce',
-      entities: [],
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    UsersModule
+    UsersModule,
+    TasksModule,
+    AuthModule,
+    ProductModule,
+    OrderModule,
+    QrcodeModule,
+    CustomerModule,
+    BlogModule,
+    PagesModule,
+    MediaModule
   ],
   controllers: [AppController],
   providers: [AppService],
