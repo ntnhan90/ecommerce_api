@@ -23,7 +23,7 @@ export class User {
     @Column()
     avatar_id: string;
 
-    @Column()
+    @Column({ default: 0 })
     isActive: number;
 
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })

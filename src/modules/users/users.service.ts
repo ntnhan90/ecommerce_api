@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository, UpdateResult, DeleteResult } from 'typeorm';
+import {genSaltSync, hashSync, compareSync} from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
@@ -13,7 +14,19 @@ export class UsersService {
   ){}
 
   async create(createUserDto: CreateUserDto) : Promise<User>{
-    return await this.userRepo.save(createUserDto);
+    const hashPassword = this.getHashPassword(createUserDto.password);
+    
+    let user = await this.userRepo.save({
+      email: createUserDto.email,
+      password: hashPassword,
+      username: createUserDto.username,
+      first_name: createUserDto.first_name,
+      last_name: createUserDto.last_name,
+      isActive: 0,
+      avatar_id: "0"
+    });
+
+    return user;
   }
 
   async findAll():Promise<User[]> {
@@ -29,10 +42,22 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<UpdateResult> {
+    const hashPassword = this.getHashPassword(updateUserDto.password);
+    updateUserDto.password = hashPassword;
     return await this.userRepo.update(id, updateUserDto);
   }
 
   async remove(id: number): Promise<void> {
     await this.userRepo.delete(id);
+  }
+
+  getHashPassword = (password: string) =>{
+    var salt = genSaltSync(10);
+    var hash = hashSync(password, salt);
+    return hash;
+  }
+
+  isValidPassword(password:string, hash: string){
+    return compareSync(password, hash);
   }
 }
