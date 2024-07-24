@@ -8,25 +8,25 @@ export class Category {
     @Column()
     name: string;
 
-    @Column()
+    @Column({default:0})
     parent_id: number;
 
-    @Column()
+    @Column({nullable: true })
     description: string;
 
-    @Column()
+    @Column({default:"published"})
     status: string;
 
-    @Column()
+    @Column({nullable: true })
     icon: string;
 
     @Column()
     order: number;
 
-    @Column()
+    @Column({default:0})
     is_featured: number;
 
-    @Column()
+    @Column({default:0})
     is_default: number;
 
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })

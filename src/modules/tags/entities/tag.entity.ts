@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToMany} from "typeorm";
 
 @Entity('tags')
 export class Tag {
@@ -14,7 +14,7 @@ export class Tag {
     @Column()
     description : string;
 
-    @Column()
+    @Column({default:"published"})
     status: string;
     
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })

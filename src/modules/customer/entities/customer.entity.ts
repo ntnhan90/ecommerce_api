@@ -14,7 +14,7 @@ export class Customer {
     @Column()
     password: string;
 
-    @Column()
+    @Column({nullable: true })
     avatar: string;
 
     @Column({ type: 'date' })
@@ -23,14 +23,14 @@ export class Customer {
     @Column()
     phone: string;
 
-    @Column()
+    @Column({nullable: true })
     remember_token: string;
 
-    @Column()
+    @Column({default:0})
     is_vendor: number;
 
-    @Column()
-    status: number;
+    @Column({default:"published"})
+    status: string;
 
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
     public created_at: Date;

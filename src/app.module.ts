@@ -9,7 +9,6 @@ import { ProductModule } from './modules/product/product.module';
 import { OrderModule } from './modules/order/order.module';
 import { QrcodeModule } from './modules/qrcode/qrcode.module';
 import { CustomerModule } from './modules/customer/customer.module';
-import { BlogModule } from './modules/blog/blog.module';
 import { PagesModule } from './modules/pages/pages.module';
 import { MediaModule } from './modules/media/media.module';
 import { ContactModule } from './modules/contact/contact.module';
@@ -18,6 +17,7 @@ import { TagsModule } from './modules/tags/tags.module';
 import { ProductCategoriesModule } from './modules/product-categories/product-categories.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PostsModule } from './modules/posts/posts.module';
 
 @Module({
   imports: [
@@ -41,7 +41,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     OrderModule,
     QrcodeModule,
     CustomerModule,
-    BlogModule,
     PagesModule,
     MediaModule,
     ContactModule,
@@ -49,7 +48,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ProductTagsModule,
     TagsModule,
     ProductCategoriesModule,
-    CategoriesModule
+    CategoriesModule,
+    PostsModule
   ],
   controllers: [AppController],
   providers: [AppService],
