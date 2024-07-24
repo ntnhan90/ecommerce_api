@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn,CreateDateColumn,UpdateDateColumn} from 'typeorm';
 
-@Entity("ec_customers")
-export class Customer {
+@Entity("contacts")
+export class Contact {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -12,30 +12,20 @@ export class Customer {
     email: string;
 
     @Column()
-    password: string;
-
-    @Column()
-    avatar: string;
-
-    @Column({ type: 'date' })
-    dob: string;
-
-    @Column()
     phone: string;
 
     @Column()
-    remember_token: string;
+    address: string;
 
     @Column()
-    is_vendor: number;
+    content: string;
 
     @Column()
-    status: number;
+    status: string;
 
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
     public created_at: Date;
 
     @UpdateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)", onUpdate: "CURRENT_TIMESTAMP(6)" })
     public updated_at: Date;
-
 }

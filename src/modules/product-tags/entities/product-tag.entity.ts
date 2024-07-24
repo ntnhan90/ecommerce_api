@@ -1,31 +1,19 @@
-import { Entity, Column, PrimaryGeneratedColumn,CreateDateColumn,UpdateDateColumn} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
-@Entity("users")
-export class User {
+@Entity('ec_product_tags')
+export class ProductTag {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    email: string;
+    name: string;
 
     @Column()
-    username: string;
+    description : string;
 
     @Column()
-    password: string;
-
-    @Column()
-    first_name: string;
-
-    @Column()
-    last_name: string;
-
-    @Column()
-    avatar_id: string;
-
-    @Column()
-    isActive: number;
-
+    status: string;
+    
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
     public created_at: Date;
 

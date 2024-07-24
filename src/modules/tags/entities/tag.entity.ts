@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn,CreateDateColumn,UpdateDateColumn} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
-@Entity("posts")
-export class Blog {
+@Entity('tags')
+export class Tag {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -9,32 +9,14 @@ export class Blog {
     name: string;
 
     @Column()
-    slug: string;
+    author_id : number;
 
     @Column()
-    description: string;
-
-    @Column()
-    content: string;
+    description : string;
 
     @Column()
     status: string;
-
-    @Column()
-    author_id: number;
-
-    @Column()
-    is_featured: number;
-
-    @Column()
-    image: string;
-
-    @Column()
-    views: number;
-
-    @Column()
-    format_type: string;
-
+    
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
     public created_at: Date;
 

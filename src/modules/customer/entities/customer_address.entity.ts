@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn,CreateDateColumn,UpdateDateColumn} from 'typeorm';
 
-@Entity("ec_customers")
+@Entity("ec_customer_addresses")
 export class Customer {
     @PrimaryGeneratedColumn()
     id: number;
@@ -12,25 +12,25 @@ export class Customer {
     email: string;
 
     @Column()
-    password: string;
-
-    @Column()
-    avatar: string;
-
-    @Column({ type: 'date' })
-    dob: string;
-
-    @Column()
     phone: string;
 
     @Column()
-    remember_token: string;
+    country: string;
+
+    @Column({ type: 'date' })
+    city: string;
 
     @Column()
-    is_vendor: number;
+    district: string;
 
     @Column()
-    status: number;
+    address: string;
+
+    @Column()
+    customer_id: number;
+
+    @Column()
+    is_default: number;
 
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
     public created_at: Date;

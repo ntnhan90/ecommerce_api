@@ -12,9 +12,18 @@ import { CustomerModule } from './modules/customer/customer.module';
 import { BlogModule } from './modules/blog/blog.module';
 import { PagesModule } from './modules/pages/pages.module';
 import { MediaModule } from './modules/media/media.module';
+import { ContactModule } from './modules/contact/contact.module';
+import { ProductTagsModule } from './modules/product-tags/product-tags.module';
+import { TagsModule } from './modules/tags/tags.module';
+import { ProductCategoriesModule } from './modules/product-categories/product-categories.module';
+import { CategoriesModule } from './modules/categories/categories.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -34,7 +43,13 @@ import { MediaModule } from './modules/media/media.module';
     CustomerModule,
     BlogModule,
     PagesModule,
-    MediaModule
+    MediaModule,
+    ContactModule,
+    ProductCategoriesModule,
+    ProductTagsModule,
+    TagsModule,
+    ProductCategoriesModule,
+    CategoriesModule
   ],
   controllers: [AppController],
   providers: [AppService],
