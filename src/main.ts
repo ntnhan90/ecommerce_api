@@ -1,9 +1,26 @@
-import { NestFactory } from '@nestjs/core';
+import {
+  ClassSerializerInterceptor,
+  HttpStatus,
+  RequestMethod,
+  UnprocessableEntityException,
+  ValidationError,
+  ValidationPipe,
+  VersioningType
+} from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { NestFactory , Reflector} from '@nestjs/core';
+import compression from 'compression';
+import helmet from 'helmet';
+import { Logger } from 'nestjs-pino';
+import { AuthService } from './modules/auth/auth.service';
+import { AppModule } from './app.module';
+
+
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
-import { ConfigService } from '@nestjs/config';
-import { AppModule } from './app.module';
-import {ValidationPipe} from '@nestjs/common';
+
+
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
