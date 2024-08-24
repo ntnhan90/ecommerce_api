@@ -1,11 +1,41 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { UsersService } from './users.service';
+
+
+import { Uuid } from 'src/common/types/common.type';
+//imp
+
+import { 
+  Body,
+  Controller,
+  Delete, 
+  Get,
+  HttpStatus,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post, 
+  Query } from '@nestjs/common';
+import { ApiParam, ApiTags } from '@nestjs/swagger';
+
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-@Controller('users')
+
+import { UsersService } from './users.service';
+
+
+@ApiTags('users')
+@Controller({
+  path: 'user',
+  version: '1'
+})
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+ 
+  @Get('me')
+  async getCurrentUser(){
+    return "current User";
+  }
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {

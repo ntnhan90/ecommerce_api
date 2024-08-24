@@ -2,8 +2,15 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import { ApiParam, ApiTags } from '@nestjs/swagger';
 
-@Controller('auth')
+
+
+@ApiTags('auth')
+@Controller({
+  path: 'auth',
+  version: '1'
+})
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -18,6 +25,7 @@ export class AuthController {
   }
 
   @Get(':id')
+  @ApiParam({ name: 'id', type: 'String' })
   findOne(@Param('id') id: string) {
     return this.authService.findOne(+id);
   }
