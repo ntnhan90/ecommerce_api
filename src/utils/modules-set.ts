@@ -4,7 +4,6 @@ import { ModuleMetadata } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApiModule } from 'src/modules/api.module';
-import path from 'path';
 
 function generateModuleSet(){
     const imports: ModuleMetadata['imports'] = [

@@ -6,11 +6,11 @@ import {
   IsInt,
   IsOptional,
   IsString,
+  Matches,
   IsUrl,
   Max,
   Min,
 } from 'class-validator';
-//import process from 'node:process';
 import validateConfig from 'src/utils/validate-config';
 import { AppConfig } from './app-config.type';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -35,6 +35,12 @@ class EnvironmentVariablesValidator {
   @IsOptional()
   APP_PORT: number;
 
+  @IsInt()
+  @Min(0)
+  @Max(65535)
+  @IsOptional()
+  PORT: number;
+
   @IsBoolean()
   @IsOptional()
   APP_DEBUG: boolean;
@@ -57,6 +63,9 @@ class EnvironmentVariablesValidator {
   APP_LOG_SERVICE: string;
 
   @IsString()
+  @Matches(
+    /^(true|false|\*|([\w]+:\/\/)?([\w.-]+)(:[0-9]+)?)?(,([\w]+:\/\/)?([\w.-]+)(:[0-9]+)?)*$/,
+  )
   @IsOptional()
   APP_CORS_ORIGIN: string;
 }
