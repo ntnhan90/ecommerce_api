@@ -1,26 +1,26 @@
-import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { ErrorDetailDto } from "./error-detail.dto";
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ErrorDetailDto } from './error-detail.dto';
 
 export class ErrorDto {
-    @ApiProperty()
-    timestamp: string;
+  @ApiProperty()
+  timestamp: string;
 
-    @ApiProperty()
-    statusCode:number;
+  @ApiProperty()
+  statusCode: number;
 
-    @ApiProperty()
-    error:string;
+  @ApiProperty()
+  error: string;
 
-    @ApiPropertyOptional()
-    errorCode?:string;
+  @ApiPropertyOptional()
+  errorCode?: string;
 
-    @ApiProperty()
-    message:string;
+  @ApiProperty()
+  message: string;
 
-    @ApiPropertyOptional({ type: ErrorDetailDto, isArray: true })
-    details?: ErrorDetailDto[];
+  @ApiPropertyOptional({ type: ErrorDetailDto, isArray: true })
+  details?: ErrorDetailDto[];
 
-    stack?: string;
+  stack?: string;
 
-    trace?: Error | unknown;
+  trace?: Error | unknown;
 }
