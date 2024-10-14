@@ -15,8 +15,8 @@ import { Logger } from 'nestjs-pino';
 // import { AuthService } from './api/auth/auth.service';
 import { AppModule } from './app.module';
 import { type AllConfigType } from './config/config.type';
-//import { GlobalExceptionFilter } from './filters/global-exception.filter';
-//import { AuthGuard } from './guards/auth.guard';
+import { GlobalExceptionFilter } from './filters/global-exception.filter';
+import { AuthGuard } from './guards/auth.guard';
 import setupSwagger from 'src/utils/setup-swagger'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -29,19 +29,17 @@ async function bootstrap() {
 
   //app.useLogger(app.get(Logger));
   app.use(helmet());
-
   // For high-traffic websites in production, it is strongly recommended to offload compression from the application server - typically in a reverse proxy (e.g., Nginx). In that case, you should not use compression middleware.
   app.use(compression());
   
   const configService = app.get(ConfigService<AllConfigType>);
   const reflector = app.get(Reflector);
   const isDevelopment =
-  configService.getOrThrow('app.nodeEnv', { infer: true }) === 'development';
-
-  
+    configService.getOrThrow('app.nodeEnv', { infer: true }) === 'development';
   const corsOrigin = configService.getOrThrow('app.corsOrigin', {
     infer: true,
   });
+  
   app.enableCors({
     origin: corsOrigin,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -49,6 +47,8 @@ async function bootstrap() {
     credentials: true,
   });
   console.info('CORS Origin:', corsOrigin);
+
+
 
 
   app.setGlobalPrefix(
@@ -60,14 +60,26 @@ async function bootstrap() {
       ],
     },
   );
- 
+  
   app.enableVersioning({
     type: VersioningType.URI,
   });
 
-
-   /* */
-   if (isDevelopment) {
+  //
+  app.useGlobalFilters(new GlobalExceptionFilter(configService));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+      exceptionFactory: (errors: ValidationError[]) => {
+        return new UnprocessableEntityException(errors);
+      }
+    })
+  )
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
+  
+  if (isDevelopment) {
     setupSwagger(app);
   }
 

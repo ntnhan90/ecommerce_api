@@ -185,7 +185,7 @@ export class GlobalExceptionFilter  implements ExceptionFilter{
 
     private extractValidationErrorDetails(
         errors: ValidationError[],
-      ): ErrorDetailDto[] {
+    ): ErrorDetailDto[] {
         const extractErrors = (
           error: ValidationError,
           parentProperty: string = '',

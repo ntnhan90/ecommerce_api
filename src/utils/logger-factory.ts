@@ -75,19 +75,19 @@ function googleLoggingConfig():Options{
     }    
 }
 
-function consoleLoggingConfig(): Options{
+function consoleLoggingConfig(): Options {
     return {
-        messageKey: 'msg',
-        transport: {
-            target: 'pino-pretty',
-            options: {
-                singleLine: true,
-                ignore:
-                'req.id,req.method,req.url,req.headers,req.remoteAddress,req.remotePort,res.headers',
-            }
-        }
-    }
-}
+      messageKey: 'msg',
+      transport: {
+        target: 'pino-pretty',
+        options: {
+          singleLine: true,
+          ignore:
+            'req.id,req.method,req.url,req.headers,req.remoteAddress,req.remotePort,res.headers',
+        },
+      },
+    };
+  }
 
 async function loggerFactory(
     configService:ConfigService<AllConfigType>
