@@ -5,8 +5,8 @@ import { AllConfigType } from 'src/config/config.type';
 import { Environment } from 'src/constants/app.constant';
 import databaseConfig from 'src/database/config/database.config';
 
-
-
+import mailConfig from 'src/mail/config/mail.config';
+import { MailModule } from 'src/mail/mail.module';
 import { ModuleMetadata } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -32,6 +32,14 @@ function generateModuleSet(){
 
     let customModules: ModuleMetadata['imports'] = [];
 
+	const i18nModule = I18nModule.forRootAsync({
+		resolvers: [
+			{ use: QueryResolver, options: ['lang'] },
+			AcceptLanguageResolver,
+			new HeaderResolver(['x-lang']),
+		]
+	})
+
 	const loggerModule = LoggerModule.forRootAsync({
 		imports: [ConfigModule],
 		inject: [ConfigService],
@@ -44,12 +52,14 @@ function generateModuleSet(){
           	customModules = [
             	ApiModule,
 				loggerModule,
+				MailModule,
           	];
          	break;
         case 'api':
           	customModules = [
             	ApiModule,
-				loggerModule
+				loggerModule,
+				MailModule,
          	];
           	break;
         default:
