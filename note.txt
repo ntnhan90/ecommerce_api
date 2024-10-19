@@ -1,5 +1,6 @@
 nest g resource users --no-spec
 
+yarn run start:dev
 
 
 import { Module } from '@nestjs/common';

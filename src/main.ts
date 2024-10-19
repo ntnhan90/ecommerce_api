@@ -15,7 +15,7 @@ import { Logger } from 'nestjs-pino';
 // import { AuthService } from './api/auth/auth.service';
 import { AppModule } from './app.module';
 import { type AllConfigType } from './config/config.type';
-import { GlobalExceptionFilter } from './filters/global-exception.filter';
+//import { GlobalExceptionFilter } from './filters/global-exception.filter';
 import { AuthGuard } from './guards/auth.guard';
 import setupSwagger from 'src/utils/setup-swagger'
 
@@ -66,7 +66,7 @@ async function bootstrap() {
   });
 
   //
-  app.useGlobalFilters(new GlobalExceptionFilter(configService));
+//  app.useGlobalFilters(new GlobalExceptionFilter(configService));
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -78,7 +78,7 @@ async function bootstrap() {
     })
   )
   app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
-  
+
   if (isDevelopment) {
     setupSwagger(app);
   }

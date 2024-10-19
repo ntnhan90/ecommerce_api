@@ -30,26 +30,6 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
             entities: [__dirname + '/../**/*.entity{.ts,.js}'],
             migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
             migrationsTableName: 'migrations',
-            poolSize: this.configService.get('database.maxConnections', {
-              infer: true,
-            }),
-            ssl: this.configService.get('database.sslEnabled', { infer: true })
-              ? {
-                  rejectUnauthorized: this.configService.get(
-                    'database.rejectUnauthorized',
-                    { infer: true },
-                  ),
-                  ca:
-                    this.configService.get('database.ca', { infer: true }) ??
-                    undefined,
-                  key:
-                    this.configService.get('database.key', { infer: true }) ??
-                    undefined,
-                  cert:
-                    this.configService.get('database.cert', { infer: true }) ??
-                    undefined,
-                }
-              : undefined,
           } as TypeOrmModuleOptions;
     }
 
