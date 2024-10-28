@@ -2,37 +2,3 @@ nest g resource users --no-spec
 
 yarn run start:dev
 
-
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-
-import { UsersModule } from './modules/users/users.module';
-import { CategoriesModule } from './modules/categories/categories.module';
-import { TaskModule } from './modules/task/task.module';
-
-@Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 8889,
-      username: 'root',
-      password: 'root',
-      database: 'ecommerce',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
-    }),
-    UsersModule, 
-    CategoriesModule, 
-    TaskModule
-  ],
-  controllers: [AppController],
-  providers: [AppService],
-})
-export class AppModule {}

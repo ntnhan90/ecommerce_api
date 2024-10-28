@@ -42,7 +42,7 @@ export function ToLowerCase(): PropertyDecorator{
             }
 
             if(!Array.isArray(value)){
-                return value.ToLowerCase();
+                return value.toLowerCase();
             }
 
             return value.map((v) => v.ToLowerCase());

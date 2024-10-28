@@ -12,12 +12,12 @@ export abstract class AbstracEntity extends BaseEntity{
     @Order(9999)
     @CreateDateColumn({
         name:'created_at',
-        type: 'timestamptz',
+        type: Date,
         default: () => 'CURRENT_TIMESTAMP',
         nullable: false,
     })
     createdAt:Date;
-
+/*
     @Order(9999)
     @Column({
         name: 'created_by',
@@ -25,16 +25,16 @@ export abstract class AbstracEntity extends BaseEntity{
         nullable: false,
     })
     createdBy: string;
-
+*/
     @Order(9999)
     @UpdateDateColumn({
         name: 'updated_at',
-        type: 'timestamptz',
+        type: Date,
         default: () => 'CURRENT_TIMESTAMP',
         nullable: false,
     })
     updatedAt: Date;
-
+/*
     @Order(9999)
     @Column({
         name: 'updated_by',
@@ -42,7 +42,7 @@ export abstract class AbstracEntity extends BaseEntity{
         nullable: false,
     })
     updatedBy: string;
-
+*/
     toDto<Dto>(dtoClass: new() => Dto): Dto {
         return plainToInstance(dtoClass, this);
     }

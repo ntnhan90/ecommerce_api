@@ -1,15 +1,26 @@
-import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
+import { AbstracEntity } from 'src/database/entities/abstract.entity';
+import { 
+  BeforeInsert,
+  BeforeUpdate,
+  Entity, 
+  Column, 
+  PrimaryGeneratedColumn, 
+  Index 
+} from 'typeorm';
+import { getHashPassword } from 'src/utils/password.util';
 
 @Entity({ name: 'users' })
-export class User {
+export class UserEntity extends AbstracEntity {
+  constructor(data?: Partial<UserEntity>){
+    super();
+    Object.assign(this, data)
+  }
+
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   email: string;
-
-  @Column()
-  name: string;
 
   @Column()
   username: string;
@@ -23,9 +34,17 @@ export class User {
   @Column()
   last_name: string;
 
-  @Column()
+  @Column({ default: '' })
   avatar_id: string;
 
   @Column({ default: 1 })
   isActive: number;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hashPassword() {
+    if (this.password) {
+      this.password = await getHashPassword(this.password);
+    }
+  }
 }

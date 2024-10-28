@@ -1,5 +1,6 @@
-import argon2 from 'argon2'
+import {genSaltSync, hashSync} from 'bcryptjs';
 
+/*
 export const hashPassword = async(password: string) : Promise<string> =>{
     try{
         return await argon2.hash(password);
@@ -19,4 +20,10 @@ export const verifyPassword = async (
         console.error(err);
         return false;
     }
-}
+}*/
+
+export const getHashPassword = (password: string) =>{
+    var salt = genSaltSync(10);
+    var hash = hashSync(password, salt);
+    return hash;
+  }
