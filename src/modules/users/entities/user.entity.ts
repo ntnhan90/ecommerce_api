@@ -40,6 +40,9 @@ export class UserEntity extends AbstracEntity {
   @Column({ default: 1 })
   isActive: number;
 
+  @Column()
+  refresh_token: string;
+
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword() {

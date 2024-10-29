@@ -105,4 +105,19 @@ export class UsersService {
         await this.usersRepository.softDelete(id);
        // return `This action removes a #${id} user`;
     }
+
+    // update Token
+    updateUserToken = async ( refreshToken: string, id: number) => {
+        const user = await this.usersRepository.findOneByOrFail({ id });
+        user.refresh_token = refreshToken
+        return await this.usersRepository.save(user);
+    }
+
+    findUserByToken = async(refreshToken: string) => {
+        const user = await this.usersRepository.findOne({
+            where:[
+                { refresh_token:  refreshToken },
+            ],
+        }); 
+    }
 }

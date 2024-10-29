@@ -1,10 +1,14 @@
+import { CurrentUser } from 'src/decorators/current-user.decorator';
+import { ApiAuth, ApiPublic } from 'src/decorators/http.decorators';
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
-
-
+import { AuthService } from './auth.service';
+import { LoginReqDto } from './dto/login.req.dto';
+import { LoginResDto } from './dto/login.res.dto';
+import { RefreshReqDto } from './dto/refresh.req.dto';
+import { RefreshResDto } from './dto/refresh.res.dto';
+import { RegisterReqDto } from './dto/register.req.dto';
+import { RegisterResDto } from './dto/register.res.dto';
 
 @ApiTags('auth')
 @Controller({
@@ -12,31 +16,14 @@ import { ApiParam, ApiTags } from '@nestjs/swagger';
   version: '1'
 })
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
-
-  @Post()
-  create(@Body() createAuthDto: CreateAuthDto) {
-    return this.authService.create(createAuthDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.authService.findAll();
-  }
-
-  @Get(':id')
-  @ApiParam({ name: 'id', type: 'String' })
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
-  }
+    constructor(private readonly authService: AuthService) {}
+    
+    @ApiPublic({
+      type: LoginResDto,
+      summary: 'Sign in'
+    })
+    @Post('login')
+    async signIn(@Body() userLogin: LoginReqDto): Promise<LoginResDto>{
+        return await this.authService.signIn(userLogin);
+    }
 }
